@@ -6,7 +6,8 @@ WORKDIR /root
 
 ENV AZURE_CLI_VERSION 0.9.14
 
-RUN npm install --global azure-cli@$AZURE_CLI_VERSION && \
-      azure --completion >> ~/azure.completion.sh && \
-      echo 'source ~/azure.completion.sh' >> ~/.bashrc && \
+RUN  apk --update add python make g++ && \
+      npm install --global azure-cli@$AZURE_CLI_VERSION && \
+      apk del python make g++ ; rm -rf /var/cache/apk/* ; \
+      apk stats ; \
       azure
